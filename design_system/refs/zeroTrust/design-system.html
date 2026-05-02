@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System - Zero Trust</title>
+    
+    <!-- Original Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&display=swap">
+    
+    <!-- Original CSS -->
+    <link rel="stylesheet" href="css/index-O2jjJSzU.css">
+    
+    <!-- Original JS for Icons -->
+    <script src="js/iconify-icon.min.js"></script>
+    
+    <!-- Documentation Styles -->
+    <style>
+        :root {
+            --docs-bg: #0f0f0f;
+            --docs-border: #333;
+            --docs-accent: #00e5ff;
+        }
+        
+        body {
+            background: var(--docs-bg);
+            margin: 0;
+            padding: 0;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Fixed Navigation */
+        .ds-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-blur: 10px;
+            border-bottom: 1px solid var(--docs-border);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            z-index: 1000;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .ds-nav a {
+            color: #888;
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-right: 2rem;
+            transition: color 0.3s;
+        }
+
+        .ds-nav a:hover {
+            color: var(--docs-accent);
+        }
+
+        .ds-section {
+            padding: 100px 2rem 60px;
+            border-bottom: 1px solid var(--docs-border);
+        }
+
+        .ds-section-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 24px;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            color: var(--docs-accent);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .ds-section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--docs-border);
+        }
+
+        .ds-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Typography Table */
+        .ds-typo-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .ds-typo-table tr {
+            border-bottom: 1px solid var(--docs-border);
+        }
+
+        .ds-typo-table td {
+            padding: 2rem 0;
+        }
+
+        .ds-typo-name {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            width: 200px;
+        }
+
+        .ds-typo-spec {
+            font-size: 12px;
+            color: #666;
+            text-align: right;
+            width: 150px;
+        }
+
+        /* Color Swatches */
+        .ds-color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .ds-color-card {
+            border: 1px solid var(--docs-border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .ds-color-swatch {
+            height: 120px;
+        }
+
+        .ds-color-info {
+            padding: 1rem;
+            background: #151515;
+        }
+
+        .ds-color-name {
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .ds-color-hex {
+            font-size: 10px;
+            color: #666;
+            font-family: monospace;
+        }
+
+        /* Component States */
+        .ds-component-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+            background: #0a0a0a;
+            border: 1px solid var(--docs-border);
+            border-radius: 4px;
+        }
+
+        .ds-component-label {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Motion Gallery */
+        .ds-motion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .ds-motion-card {
+            background: #0a0a0a;
+            border: 1px solid var(--docs-border);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Responsive Layout Previews */
+        .ds-layout-preview {
+            background: #0a0a0a;
+            border: 1px solid var(--docs-border);
+            margin-bottom: 4rem;
+        }
+
+        .ds-layout-label {
+            padding: 1rem;
+            background: #151515;
+            font-size: 12px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--docs-border);
+        }
+
+        /* Hero Override for Section 0 */
+        #hero-clone-section {
+            padding: 60px 0 0;
+            background: #060606;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="ds-nav">
+        <a href="#hero">Hero</a>
+        <a href="#typography">Typography</a>
+        <a href="#colors">Colors & Surfaces</a>
+        <a href="#components">UI Components</a>
+        <a href="#layout">Layout & Spacing</a>
+        <a href="#motion">Motion</a>
+        <a href="#icons">Icons</a>
+    </nav>
+
+    <div id="hero" class="ds-section" id="hero-clone-section">
+        <div class="ds-container">
+            <h2 class="ds-section-title">0. Hero (Clone Exato)</h2>
+        </div>
+        
+        <!-- START HERO CLONE -->
+        <div class="min-h-screen bg-[#060606] flex flex-col font-sans">
+            <header class="max-w-7xl mx-auto px-8 py-10 flex justify-between items-center w-full">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-[#00e5ff] rounded-sm flex items-center justify-center">
+                        <span class="text-black font-bold text-xl">N</span>
+                    </div>
+                    <span class="font-mono text-xs tracking-[0.3em] uppercase text-white font-sans">Nexus.Core</span>
+                </div>
+
+                <nav class="hidden md:flex items-center gap-10">
+                    <a href="#" class="font-mono text-xs text-white/50 hover:text-white uppercase tracking-widest transition-colors font-sans">Network</a>
+                    <a href="#" class="font-mono text-xs text-white/50 hover:text-white uppercase tracking-widest transition-colors font-sans">Nodes</a>
+                    <a href="#" class="font-mono text-xs text-white/50 hover:text-white uppercase tracking-widest transition-colors font-sans">API</a>
+                    <a href="#" class="font-mono text-xs text-white/50 hover:text-white uppercase tracking-widest transition-colors font-sans">Enterprise</a>
+                </nav>
+
+                <div class="flex items-center gap-6">
+                    <a href="#" class="font-mono text-xs text-white/60 hover:text-white uppercase tracking-widest hidden sm:block font-sans">Authenticate</a>
+                    <button class="border border-white/20 hover:border-[#00e5ff] hover:text-[#00e5ff] text-white px-4 py-2 rounded uppercase font-mono text-xs tracking-widest transition-all font-sans">
+                        Initialize
+                    </button>
+                </div>
+            </header>
+
+            <main class="flex flex-col lg:flex-row border-b border-white/5">
+                <div class="lg:w-1/2 p-8 lg:p-14 border-r border-white/5 flex flex-col justify-center relative">
+                    <div class="inline-flex items-center gap-2 border border-white/10 rounded-full px-3 py-1 w-fit mb-8 bg-white/5">
+                        <div class="w-1.5 h-1.5 rounded-full bg-[#00e5ff]" style="box-shadow: 0 0 8px #00e5ff;"></div>
+                        <span class="font-mono text-[10px] text-white/60 tracking-widest uppercase font-sans">Design System · v1.0</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-[52px] uppercase leading-[1.1] text-white mb-6 font-light tracking-tighter" style="font-family: 'Bricolage Grotesque', sans-serif;">
+                        Living <br> Design <br>
+                        <span class="text-[#00e5ff] font-light tracking-tighter">System</span>
+                    </h1>
+
+                    <p class="text-sm text-white/50 max-w-[400px] leading-relaxed mb-10 font-sans">
+                        Comprehensive documentation of patterns, components, and visual standards extracted from the Nexus Core architecture.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-20">
+                        <button class="bg-[#00e5ff] hover:bg-[#00cce5] text-black px-6 py-3.5 rounded uppercase font-mono text-xs font-semibold tracking-widest transition-colors flex items-center gap-2 w-full sm:w-auto justify-center font-sans">
+                            Explore Patterns
+                            <iconify-icon icon="solar:arrow-right-linear" style="font-size: 1rem;" stroke-width="1.5"></iconify-icon>
+                        </button>
+                        <button class="border border-white/10 hover:bg-white/5 text-white px-6 py-3.5 rounded uppercase font-mono text-xs tracking-widest transition-colors flex items-center gap-2 w-full sm:w-auto justify-center font-sans">
+                            <iconify-icon icon="solar:play-circle-linear" style="font-size: 1.1rem;" stroke-width="1.5"></iconify-icon>
+                            Visual Spec
+                        </button>
+                    </div>
+
+                    <div class="mt-auto pt-8">
+                        <p class="font-mono text-[10px] text-white/40 tracking-widest uppercase mb-4 font-sans">Design Standards:</p>
+                        <div class="flex flex-wrap items-center gap-6 sm:gap-10 opacity-60 grayscale">
+                            <span class="font-serif italic text-base tracking-wider text-white/80 font-sans">Typography</span>
+                            <span class="font-semibold tracking-tighter text-sm text-white/80 font-sans">COLORMAP</span>
+                            <span class="font-mono lowercase text-sm tracking-wide text-white/80 font-sans">ui.logic</span>
+                            <span class="font-medium text-sm tracking-tight text-white/80 font-sans">Motion</span>
+                            <span class="font-serif uppercase text-xs tracking-widest text-white/80 font-sans">LAYOUT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 relative bg-[#060606] min-h-[400px] lg:min-h-0 overflow-hidden flex items-center justify-center p-8">
+                    <div class="absolute top-8 left-8 right-8 flex justify-between items-center z-20">
+                        <span class="font-mono text-[10px] text-white/40 tracking-widest uppercase font-sans">// System Preview</span>
+                        <div class="flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#00e5ff] animate-pulse"></div>
+                            <span class="font-mono text-[10px] text-[#00e5ff] tracking-widest uppercase font-sans">Live</span>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-[20%] left-[50%] -translate-x-[50%] z-20 flex flex-col items-center">
+                        <div class="border border-white/20 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-sm flex flex-col items-center border-t-[#00e5ff]">
+                            <span class="font-mono text-xs text-[#00e5ff] font-sans">Pattern Core</span>
+                            <span class="font-mono text-[10px] text-white/60 mt-1 font-sans">Visual Documentation</span>
+                        </div>
+                        <div class="w-px h-16 bg-gradient-to-b from-white/20 to-transparent"></div>
+                    </div>
+                    
+                    <div class="text-white/20 font-mono text-[8px] uppercase tracking-[0.5em] text-center">
+                        Interactive Visual Asset Placeholder
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- END HERO CLONE -->
+    </div>
+
+    <section id="typography" class="ds-section">
+        <div class="ds-container">
+            <h2 class="ds-section-title">1. Tipografia</h2>
+            <table class="ds-typo-table">
+                <tr>
+                    <td class="ds-typo-name">Heading 1</td>
+                    <td>
+                        <h1 class="text-4xl sm:text-5xl lg:text-[52px] uppercase leading-[1.1] text-white font-light tracking-tighter" style="font-family: 'Bricolage Grotesque', sans-serif; margin: 0;">Heading One</h1>
+                    </td>
+                    <td class="ds-typo-spec">52px / 1.1</td>
+                </tr>
+                <tr>
+                    <td class="ds-typo-name">Accent Heading</td>
+                    <td>
+                        <span class="text-[#00e5ff] text-4xl sm:text-5xl lg:text-[52px] uppercase font-light tracking-tighter" style="font-family: 'Bricolage Grotesque', sans-serif;">Accent Text</span>
+                    </td>
+                    <td class="ds-typo-spec">52px / 1.1</td>
+                </tr>
+                <tr>
+                    <td class="ds-typo-name">Stats Number</td>
+                    <td>
+                        <span class="text-3xl text-[#00e5ff] font-semibold tracking-tight font-sans">99.99%</span>
+                    </td>
+                    <td class="ds-typo-spec">30px / 1.2</td>
+                </tr>
+                <tr>
+                    <td class="ds-typo-name">Paragraph</td>
+                    <td>
+                        <p class="text-sm text-white/50 max-w-[400px] leading-relaxed font-sans" style="margin: 0;">NEXUS.CORE initiates neural nodes that process, route, and optimize data streams across your architecture with absolute precision.</p>
+                    </td>
+                    <td class="ds-typo-spec">14px / 1.6</td>
+                </tr>
+                <tr>
+                    <td class="ds-typo-name">Mono Label</td>
+                    <td>
+                        <span class="font-mono text-[10px] text-white/60 tracking-widest uppercase font-sans">System Overview</span>
+                    </td>
+                    <td class="ds-typo-spec">10px / 1.0</td>
+                </tr>
+                <tr>
+                    <td class="ds-typo-name">Nav Link</td>
+                    <td>
+                        <span class="font-mono text-xs text-white/50 uppercase tracking-widest font-sans">Enterprise</span>
+                    </td>
+                    <td class="ds-typo-spec">12px / 1.0</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="colors" class="ds-section">
+        <div class="ds-container">
+            <h2 class="ds-section-title">2. Cores e Superfícies</h2>
+            <div class="ds-color-grid">
+                <div class="ds-color-card">
+                    <div class="ds-color-swatch" style="background: #00e5ff;"></div>
+                    <div class="ds-color-info">
+                        <div class="ds-color-name">Primary Accent</div>
+                        <div class="ds-color-hex">#00E5FF</div>
+                    </div>
+                </div>
+                <div class="ds-color-card">
+                    <div class="ds-color-swatch" style="background: #060606;"></div>
+                    <div class="ds-color-info">
+                        <div class="ds-color-name">Main Background</div>
+                        <div class="ds-color-hex">#060606</div>
+                    </div>
+                </div>
+                <div class="ds-color-card">
+                    <div class="ds-color-swatch" style="background: #0a0a0a;"></div>
+                    <div class="ds-color-info">
+                        <div class="ds-color-name">Surface Dark</div>
+                        <div class="ds-color-hex">#0A0A0A</div>
+                    </div>
+                </div>
+                <div class="ds-color-card">
+                    <div class="ds-color-swatch" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);"></div>
+                    <div class="ds-color-info">
+                        <div class="ds-color-name">Glass Surface</div>
+                        <div class="ds-color-hex">white/10 + blur</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 4rem;">
+                <h3 class="ds-typo-name">Borders & Divisors</h3>
+                <div style="height: 1px; background: rgba(255,255,255,0.05); margin: 1rem 0;"></div>
+                <span class="ds-color-hex">Border Soft (white/5)</span>
+                <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 1rem 0;"></div>
+                <span class="ds-color-hex">Border Medium (white/10)</span>
+                <div style="height: 1px; background: rgba(255,255,255,0.2); margin: 1rem 0;"></div>
+                <span class="ds-color-hex">Border Strong (white/20)</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="components" class="ds-section">
+        <div class="ds-container">
+            <h2 class="ds-section-title">3. Componentes de UI</h2>
+            
+            <div style="margin-bottom: 4rem;">
+                <span class="ds-component-label">Buttons</span>
+                <div class="ds-component-showcase">
+                    <div>
+                        <span class="ds-color-hex">Default</span><br>
+                        <button class="bg-[#00e5ff] text-black px-6 py-3.5 rounded uppercase font-mono text-xs font-semibold tracking-widest font-sans">Primary</button>
+                    </div>
+                    <div>
+                        <span class="ds-color-hex">Hover</span><br>
+                        <button class="bg-[#00cce5] text-black px-6 py-3.5 rounded uppercase font-mono text-xs font-semibold tracking-widest font-sans">Primary</button>
+                    </div>
+                    <div>
+                        <span class="ds-color-hex">Outline</span><br>
+                        <button class="border border-white/10 text-white px-6 py-3.5 rounded uppercase font-mono text-xs tracking-widest font-sans">Secondary</button>
+                    </div>
+                    <div>
+                        <span class="ds-color-hex">Small Action</span><br>
+                        <button class="border border-white/20 text-white px-4 py-2 rounded uppercase font-mono text-xs tracking-widest font-sans">Init</button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <span class="ds-component-label">Navigation Items</span>
+                <div class="ds-component-showcase">
+                    <a href="#" class="font-mono text-xs text-white/50 uppercase tracking-widest font-sans">Default Link</a>
+                    <a href="#" class="font-mono text-xs text-white uppercase tracking-widest font-sans">Active/Hover Link</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="layout" class="ds-section">
+        <div class="ds-container">
+            <h2 class="ds-section-title">4. Layout e Espaçamento</h2>
+            
+            <div class="ds-layout-preview">
+                <div class="ds-layout-label">Stats Grid Pattern</div>
+                <div class="grid grid-cols-2 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-white/5 bg-[#0a0a0a]">
+                    <div class="p-6 md:p-8 flex flex-col items-center justify-center text-center">
+                        <span class="text-3xl text-[#00e5ff] font-semibold tracking-tight font-sans">84</span>
+                        <span class="font-mono text-[10px] text-white/40 tracking-widest uppercase mt-3 font-sans">Nodes</span>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col items-center justify-center text-center">
+                        <span class="text-3xl text-[#00e5ff] font-semibold tracking-tight font-sans">3.2M</span>
+                        <span class="font-mono text-[10px] text-white/40 tracking-widest uppercase mt-3 font-sans">Requests</span>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col items-center justify-center text-center">
+                        <span class="text-3xl text-[#00e5ff] font-semibold tracking-tight font-sans">99.9%</span>
+                        <span class="font-mono text-[10px] text-white/40 tracking-widest uppercase mt-3 font-sans">Uptime</span>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col items-center justify-center text-center">
+                        <span class="text-3xl text-[#00e5ff] font-semibold tracking-tight font-sans">12ms</span>
+                        <span class="font-mono text-[10px] text-white/40 tracking-widest uppercase mt-3 font-sans">Latency</span>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col items-center justify-center text-center">
+                        <span class="text-3xl text-[#00e5ff] font-semibold tracking-tight font-sans">256+</span>
+                        <span class="font-mono text-[10px] text-white/40 tracking-widest uppercase mt-3 font-sans">Apps</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ds-layout-preview">
+                <div class="ds-layout-label">Column Padding & Border</div>
+                <div class="flex flex-col lg:flex-row border border-white/10">
+                    <div class="lg:w-1/2 p-8 lg:p-14 border-r border-white/10">
+                        <div class="h-20 bg-white/5 rounded border border-dashed border-white/20 flex items-center justify-center text-[10px] text-white/40 uppercase tracking-widest">P-8 / P-14 Container</div>
+                    </div>
+                    <div class="lg:w-1/2 p-8">
+                        <div class="h-20 bg-white/5 rounded border border-dashed border-white/20 flex items-center justify-center text-[10px] text-white/40 uppercase tracking-widest">Secondary Content</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="motion" class="ds-section">
+        <div class="ds-container">
+            <h2 class="ds-section-title">5. Motion e Interação</h2>
+            <div class="ds-motion-grid">
+                <div class="ds-motion-card">
+                    <div class="w-4 h-4 rounded-full bg-[#00e5ff] animate-pulse mx-auto mb-4" style="box-shadow: 0 0 10px #00e5ff;"></div>
+                    <span class="ds-color-hex">animate-pulse</span>
+                    <p class="text-[10px] text-white/40 mt-2 uppercase tracking-widest">Status Indicators</p>
+                </div>
+                <div class="ds-motion-card">
+                    <button class="bg-[#00e5ff] hover:bg-black hover:text-[#00e5ff] border border-[#00e5ff] text-black px-6 py-3 rounded uppercase font-mono text-xs transition-all mx-auto block">Hover Reveal</button>
+                    <span class="ds-color-hex">transition-all 0.3s</span>
+                    <p class="text-[10px] text-white/40 mt-2 uppercase tracking-widest">Button State Transitions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="icons" class="ds-section">
+        <div class="ds-container">
+            <h2 class="ds-section-title">6. Ícones</h2>
+            <div class="ds-component-showcase" style="font-size: 2rem;">
+                <iconify-icon icon="solar:arrow-right-linear" class="text-white/60"></iconify-icon>
+                <iconify-icon icon="solar:play-circle-linear" class="text-white/60"></iconify-icon>
+                <iconify-icon icon="solar:shield-check-linear" class="text-[#00e5ff]"></iconify-icon>
+                <iconify-icon icon="solar:graph-up-linear" class="text-[#00e5ff]"></iconify-icon>
+                <iconify-icon icon="solar:settings-linear" class="text-white/40"></iconify-icon>
+            </div>
+            <p class="text-[10px] text-white/40 mt-4 uppercase tracking-widest">Library: Iconify / Solar Linear Set</p>
+        </div>
+    </section>
+
+    <footer class="ds-section" style="border-top: 1px solid var(--docs-border); border-bottom: none; text-align: center;">
+        <p class="font-mono text-[10px] text-white/20 uppercase tracking-[0.5em]">Nexus Core Design System Documentation</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for nav links
+        document.querySelectorAll('.ds-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
