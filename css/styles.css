@@ -385,7 +385,7 @@ nav {
     position: relative;
     width: 100%;
     background: linear-gradient(rgba(6, 6, 6, 0.4), rgba(6, 6, 6, 0.4)), 
-                url('../img/workflow_bg.svg');
+                url('../img/workflow_bg.svg?v=20260516');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -488,7 +488,7 @@ nav {
 
 .hero-background {
     background: linear-gradient(rgba(6, 6, 6, 0.827), rgba(6, 6, 6, 0.847)), 
-                url('../img/gaw_systems_ImageBG.png');
+                url('../img/gaw_systems_ImageBG.png?v=20260516');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -506,7 +506,7 @@ nav {
 .about-section {
     position: relative;
     background: linear-gradient(rgba(6, 6, 6, 0.711), rgba(6, 6, 6, 0.629)), 
-                url('../img/developer_bg.png');
+                url('../img/developer_bg.png?v=20260516');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -555,14 +555,17 @@ nav {
 
 /* Portfolio Section Styles */
 .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 340px));
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
 }
 
 .portfolio-card {
     position: relative;
+    flex: 0 1 300px;
+    width: 300px;
+    max-width: 100%;
     aspect-ratio: 16/10;
     overflow: hidden;
     border: 1px solid var(--border-medium);
@@ -570,6 +573,20 @@ nav {
     display: block;
     text-decoration: none;
     transition: var(--transition);
+}
+
+@media (min-width: 1024px) {
+    .portfolio-card {
+        flex-basis: 310px;
+        width: 310px;
+    }
+}
+
+@media (max-width: 640px) {
+    .portfolio-card {
+        flex-basis: min(100%, 340px);
+        width: min(100%, 340px);
+    }
 }
 
 .portfolio-card img {
