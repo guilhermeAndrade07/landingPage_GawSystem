@@ -101,7 +101,7 @@ h1, h2, h3, h4 {
     font-family: monospace;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 /* Buttons */
@@ -763,9 +763,9 @@ nav {
     }
 
     .workflow-wrapper {
-        background: linear-gradient(rgba(6, 6, 6, 0.82), rgba(6, 6, 6, 0.84)), 
+        background: linear-gradient(rgba(6, 6, 6, 0.603), rgba(6, 6, 6, 0.603)), 
                     url('../img/workflow_bg.svg?v=20260516');
-        background-size: 150% auto;
+        background-size: auto 70%;
         background-position: center top;
         background-repeat: no-repeat;
     }
@@ -805,17 +805,17 @@ nav {
 @media (max-width: 768px) {
     .hero-background {
         background: linear-gradient(rgba(6, 6, 6, 0.93), rgba(6, 6, 6, 0.91)), 
-                    url('.. /img/gaw_systems_ImageBG.png?v=20260516');
-        background-size: auto 100%;
-        background-position: 52% top;
+                    url('../img/gaw_systems_ImageBG.png?v=20260516');
+        background-size: auto 58%;
+        background-position: center top;
         background-repeat: no-repeat;
     }
 }
 
 @media (max-width: 480px) {
     .hero-background {
-        background-size: 165% auto;
-        background-position: center 24px;
+        background-size: 100% auto;
+        background-position: center top;
     }
 }
 
@@ -842,7 +842,7 @@ nav {
     .about-section {
         background: linear-gradient(rgba(6, 6, 6, 0.86), rgba(6, 6, 6, 0.84)), 
                     url('../img/developer_bg.png?v=20260516');
-        background-size: 180% auto;
+        background-size: auto 105%;
         background-position: center top;
         background-repeat: no-repeat;
     }
@@ -1038,7 +1038,7 @@ nav {
 /* Footer */
 footer {
     border-top: 1px solid var(--border-soft);
-    padding: 40px 0;
+    padding: 30px 0;
     background-color: #060606;
 }
 
