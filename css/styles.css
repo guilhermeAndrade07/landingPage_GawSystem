@@ -25,6 +25,12 @@ html {
     scroll-behavior: smooth;
 }
 
+@media (min-width: 1024px) {
+    html {
+        font-size: 95%;
+    }
+}
+
 body {
     background-color: var(--bg-main);
     color: var(--text-main);
@@ -755,6 +761,14 @@ nav {
     .process-number {
         font-size: 2.3rem;
     }
+
+    .workflow-wrapper {
+        background: linear-gradient(rgba(6, 6, 6, 0.82), rgba(6, 6, 6, 0.84)), 
+                    url('../img/workflow_bg.svg?v=20260516');
+        background-size: 150% auto;
+        background-position: center top;
+        background-repeat: no-repeat;
+    }
 }
 
 /* Section Headers */
@@ -790,8 +804,8 @@ nav {
 
 @media (max-width: 768px) {
     .hero-background {
-        background: linear-gradient(rgba(6, 6, 6, 0.9), rgba(6, 6, 6, 0.88)), 
-                    url('../img/gaw_systems_ImageBG.png?v=20260516');
+        background: linear-gradient(rgba(6, 6, 6, 0.93), rgba(6, 6, 6, 0.91)), 
+                    url('.. /img/gaw_systems_ImageBG.png?v=20260516');
         background-size: auto 100%;
         background-position: 52% top;
         background-repeat: no-repeat;
@@ -800,8 +814,8 @@ nav {
 
 @media (max-width: 480px) {
     .hero-background {
-        background-size: cover;
-        background-position: center top;
+        background-size: 165% auto;
+        background-position: center 24px;
     }
 }
 
@@ -826,10 +840,11 @@ nav {
 
 @media (max-width: 768px) {
     .about-section {
-        background: linear-gradient(rgba(6, 6, 6, 0.78), rgba(6, 6, 6, 0.76)), 
+        background: linear-gradient(rgba(6, 6, 6, 0.86), rgba(6, 6, 6, 0.84)), 
                     url('../img/developer_bg.png?v=20260516');
-        background-size: cover;
-        background-position: 58% center;
+        background-size: 180% auto;
+        background-position: center top;
+        background-repeat: no-repeat;
     }
 }
 
