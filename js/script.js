@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add logic here if a mobile menu button is added to the HTML
 
     // Smooth scroll for nav links
-    document.querySelectorAll('nav a, .footer-nav a').forEach(anchor => {
+    document.querySelectorAll('nav a, .footer-nav a, .hero-actions a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href.startsWith('#')) {
