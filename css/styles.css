@@ -95,7 +95,7 @@ h1, h2, h3, h4 {
     font-family: monospace;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 /* Buttons */
@@ -172,6 +172,20 @@ header {
     flex-shrink: 0;
 }
 
+.logo-mark {
+    width: 45px;
+    height: 45px;
+    flex: 0 0 45px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 4px;
+}
+
+.logo-mark-footer {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+}
 
 .logo-text {
     font-family: monospace;
@@ -195,6 +209,7 @@ header {
 @media (max-width: 640px) {
     .header-inner {
         height: 72px;
+        gap: 0.75rem;
     }
 
     .logo {
@@ -212,6 +227,12 @@ header {
         padding: 0.55rem 0.75rem;
         font-size: 0.65rem;
         letter-spacing: 0.08em;
+    }
+
+    header .logo-mark {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
     }
 }
 
@@ -335,6 +356,18 @@ nav {
 
     .hero h1 {
         font-size: 2.25rem;
+    }
+
+    .hero-badge {
+        padding: 0.35rem 0.65rem;
+        margin: 0.75rem 0;
+        max-width: 100%;
+    }
+
+    .hero-badge .font-mono {
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        line-height: 1.2;
     }
 
     .hero-actions {
@@ -821,6 +854,49 @@ nav {
 
 .benefits-section {
     margin-block: 1.5rem;
+}
+
+@media (max-width: 640px) {
+    .benefits-section {
+        margin-block: 1rem;
+    }
+
+    .benefits-section .benefits-inner {
+        gap: 2rem !important;
+    }
+
+    .benefits-section .font-mono {
+        font-size: 0.75rem;
+        letter-spacing: 0.14em;
+    }
+
+    .benefits-section h2 {
+        font-size: 1.85rem !important;
+        margin: 1rem 0 !important;
+        line-height: 1.08;
+    }
+
+    .benefits-section ul {
+        gap: 1.15rem !important;
+    }
+
+    .benefits-section li {
+        gap: 0.75rem !important;
+    }
+
+    .benefits-section li iconify-icon {
+        font-size: 1.25rem !important;
+    }
+
+    .benefits-section h4 {
+        font-size: 0.98rem !important;
+        line-height: 1.25;
+    }
+
+    .benefits-section p {
+        font-size: 0.88rem !important;
+        line-height: 1.55;
+    }
 }
 
 /* Reveal Animation */
