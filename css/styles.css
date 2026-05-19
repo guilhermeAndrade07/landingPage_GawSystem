@@ -101,7 +101,7 @@ h1, h2, h3, h4 {
     font-family: monospace;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
 }
 
 /* Buttons */
@@ -814,8 +814,11 @@ nav {
 
 @media (max-width: 480px) {
     .hero-background {
-        background-size: 100% auto;
+        background: linear-gradient(rgba(6, 6, 6, 0.88), rgba(6, 6, 6, 0.88)), 
+                    url('../img/gaw_systems_ImageBG.png?v=20260516');
+        background-size: 220% auto;
         background-position: center top;
+        background-repeat: no-repeat;
     }
 }
 
