@@ -25,7 +25,7 @@
     <header>
         <div class="container">
             <div class="header-inner">
-                <a href="#" class="logo">
+                <a href="#inicio" class="logo">
                     <img src="img/favicon_gawSystems.png" alt="GAW Systems Logo" class="logo-mark">
                     <span class="logo-text">GAW Systems</span>
                 </a>
@@ -46,7 +46,7 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="hero hero-background">
+        <section id="inicio" class="hero hero-background">
             <div class="hero-main">
                 <div class="hero-content reveal ">
                     <div class="hero-badge">
@@ -99,9 +99,10 @@
             <div class="container">
                 <div class="about-content-wrapper">
                     <span class="font-mono text-accent">Nossa Essência</span>
-                    <h2 class="about-title">Transformando sonhos em autoridade digital</h2>
-                    <p class="text-dim">Na GAW Systems, não construímos apenas sites, arquitetamos experiências que convertem visitantes em clientes. 
-                        Combinamos design minimalista, performance extrema e estratégias de conversão para colocar seu negócio no topo.</p>
+                    <h2 class="about-title">Tecnologia criada para impulsionar negócios</h2>
+                    <p class="text-dim">A GAW Systems nasceu com o propósito de transformar conhecimento em soluções reais para empresas. 
+                        Desenvolvemos landing pages e sistemas modernos que ajudam negócios a organizar processos, fortalecer sua presença digital e gerar novas oportunidades. 
+                        <br> Acreditamos que tecnologia não é um gasto, mas um investimento estratégico para empresas que desejam crescer, transmitir profissionalismo e evoluir no mercado digital.</p>
                 </div>
             </div>
         </section>
@@ -211,31 +212,63 @@
            <section id="portfolio" class="section-padding container">
                <div style="text-align: center; margin-bottom: 4rem;">
                    <span class="font-mono text-accent">Portfólio</span>
-                   <h2 style="font-size: 2rem; margin-top: 1rem;">Projetos de impacto</h2>
+                   <h2 style="font-size: 2rem; margin-top: 1rem;">Experiência aplicada em desenvolvimento</h2>
                </div>
                
                <div class="portfolio-grid">
-                   <a href="https://guilhermeandrade07.github.io/landingPage_Leonardo/" target="_blank" rel="noopener noreferrer" class="portfolio-card reveal">
+                   <button type="button" class="portfolio-card reveal" data-project-id="landing-page-leonardo" aria-haspopup="dialog" aria-controls="portfolio-modal">
                        <img src="img/project-01.jpg" alt="Landing Page Leonardo">
-                       <div class="portfolio-overlay">
-                           <span class="font-mono">Ver Projeto</span>
-                           <h3>Landing Page Leonardo</h3>
-                       </div>
-                   </a>
-                   <a href="#" target="_blank" rel="noopener noreferrer" class="portfolio-card reveal">
+                       <span class="portfolio-overlay">
+                           <span class="font-mono">Ver detalhes</span>
+                           <span class="portfolio-card-title">Landing Page Leonardo</span>
+                       </span>
+                   </button>
+                   <button type="button" class="portfolio-card reveal" data-project-id="nexus-fitness-center" aria-haspopup="dialog" aria-controls="portfolio-modal">
                        <img src="img/project-02.jpg" alt="Nexus Fitness Center">
-                       <div class="portfolio-overlay">
-                           <span class="font-mono">Ver Projeto</span>
-                           <h3>...</h3>
+                       <span class="portfolio-overlay">
+                           <span class="font-mono">Ver detalhes</span>
+                           <span class="portfolio-card-title">Nexus Fitness Center</span>
+                       </span>
+                   </button>
+                   <button type="button" class="portfolio-card reveal" data-project-id="gaw-finance" aria-haspopup="dialog" aria-controls="portfolio-modal">
+                       <img src="img/gaw_finace01.png" alt="Gaw Finance">
+                       <span class="portfolio-overlay">
+                           <span class="font-mono">Ver detalhes</span>
+                           <span class="portfolio-card-title">Gaw Finance</span>
+                       </span>
+                   </button>
+               </div>
+
+               <div class="portfolio-modal" id="portfolio-modal" role="dialog" aria-modal="true" aria-labelledby="portfolio-modal-title" aria-hidden="true" hidden>
+                   <div class="portfolio-modal-backdrop" data-project-close></div>
+                   <article class="portfolio-modal-content" role="document">
+                       <button type="button" class="portfolio-modal-close" data-project-close aria-label="Fechar detalhes do projeto">&times;</button>
+                       
+                       <div class="portfolio-modal-media">
+                           <div class="portfolio-carousel" aria-label="Galeria do projeto">
+                               <div class="portfolio-carousel-track" data-project-carousel-track></div>
+                               <button type="button" class="portfolio-carousel-control portfolio-carousel-prev" data-project-prev aria-label="Imagem anterior">&lsaquo;</button>
+                               <button type="button" class="portfolio-carousel-control portfolio-carousel-next" data-project-next aria-label="Pr&oacute;xima imagem">&rsaquo;</button>
+                           </div>
+                           <div class="portfolio-carousel-indicators" data-project-indicators aria-label="Indicadores da galeria"></div>
                        </div>
-                   </a>
-                   <a href="#" target="_blank" rel="noopener noreferrer" class="portfolio-card reveal">
-                       <img src="img/project-03.jpg" alt="DataVision Analytics">
-                       <div class="portfolio-overlay">
-                           <span class="font-mono">Ver Projeto</span>
-                           <h3>...</h3>
+
+                       <div class="portfolio-modal-details">
+                           <span class="font-mono text-accent">Projeto</span>
+                           <h3 id="portfolio-modal-title"></h3>
+                           <p class="portfolio-modal-description" data-project-description></p>
+
+                           <div class="portfolio-detail-block">
+                               <h4>Objetivo</h4>
+                               <p data-project-objective></p>
+                           </div>
+
+                           <div class="portfolio-detail-block">
+                               <h4>Tecnologias</h4>
+                               <ul class="portfolio-tech-list" data-project-technologies></ul>
+                           </div>
                        </div>
-                   </a>
+                   </article>
                </div>
            </section>
 
@@ -295,7 +328,7 @@
 
     <footer>
         <div class="container footer-inner">
-            <a href="#" class="logo">
+            <a href="#inicio" class="logo">
                 <img src="img/favicon_gawSystems.png" alt="GAW Systems Logo" class="logo-mark logo-mark-footer">
                 <span class="logo-text">GAW Systems</span>
             </a>

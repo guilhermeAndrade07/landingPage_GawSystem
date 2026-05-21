@@ -95,6 +95,7 @@ h1, h2, h3, h4 {
 
 .text-dim {
     color: var(--text-dim);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.634);
 }
 
 .font-mono {
@@ -958,8 +959,19 @@ nav {
     border: 1px solid var(--border-medium);
     border-radius: 4px;
     display: block;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
     text-decoration: none;
+    cursor: pointer;
     transition: var(--transition);
+}
+
+.portfolio-card:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
 }
 
 @media (min-width: 1024px) {
@@ -1002,7 +1014,12 @@ nav {
     transition: opacity 0.3s ease;
 }
 
-.portfolio-overlay h3 {
+.portfolio-card-title {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.1;
+    text-transform: uppercase;
     font-size: 1.1rem;
     color: var(--text-main);
     margin-top: 0.5rem;
@@ -1013,7 +1030,7 @@ nav {
         padding: 2rem;
     }
 
-    .portfolio-overlay h3 {
+    .portfolio-card-title {
         font-size: 1.35rem;
     }
 
@@ -1036,6 +1053,307 @@ nav {
 
 .portfolio-card:hover .portfolio-overlay {
     opacity: 1;
+}
+
+.portfolio-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.portfolio-modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.portfolio-modal[hidden] {
+    display: none;
+}
+
+.portfolio-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(12px);
+}
+
+.portfolio-modal-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+    gap: 2rem;
+    width: min(1100px, 100%);
+    max-height: min(86vh, 820px);
+    overflow: auto;
+    background: linear-gradient(135deg, rgba(10, 10, 10, 0.98), rgba(6, 6, 6, 0.98));
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 1.5rem;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+    transform: translateY(24px) scale(0.98);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-modal.is-open .portfolio-modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.portfolio-modal[data-active-project="gaw-finance"] .portfolio-modal-content {
+    grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+    width: min(1280px, 100%);
+}
+
+.portfolio-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border-medium);
+    border-radius: 4px;
+    background: rgba(6, 6, 6, 0.85);
+    color: var(--text-main);
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.portfolio-modal-close:hover,
+.portfolio-modal-close:focus-visible {
+    border-color: var(--primary);
+    color: var(--primary);
+    outline: none;
+}
+
+.portfolio-modal-media {
+    min-width: 0;
+}
+
+.portfolio-carousel {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    border: 1px solid var(--border-medium);
+    border-radius: 4px;
+    background: var(--bg-surface);
+}
+
+.portfolio-modal[data-active-project="gaw-finance"] .portfolio-carousel {
+    aspect-ratio: 2.19 / 1;
+}
+
+.portfolio-carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-carousel-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-surface);
+}
+
+.portfolio-carousel-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.portfolio-carousel-control {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border-medium);
+    border-radius: 4px;
+    background: rgba(6, 6, 6, 0.78);
+    color: var(--text-main);
+    font-size: 2rem;
+    line-height: 1;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.portfolio-carousel-control:hover,
+.portfolio-carousel-control:focus-visible {
+    border-color: var(--primary);
+    color: var(--primary);
+    outline: none;
+}
+
+.portfolio-carousel-control:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.portfolio-carousel-prev {
+    left: 1rem;
+}
+
+.portfolio-carousel-next {
+    right: 1rem;
+}
+
+.portfolio-carousel-indicators {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.portfolio-carousel-indicator {
+    width: 32px;
+    height: 4px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--border-strong);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.portfolio-carousel-indicator.is-active {
+    background: var(--primary);
+}
+
+.portfolio-carousel-indicator:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+}
+
+.portfolio-modal-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding: 1rem 0.75rem 1rem 0;
+}
+
+.portfolio-modal-details h3 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.8rem, 4vw, 3.4rem);
+}
+
+.portfolio-modal-description {
+    margin-top: 1.25rem;
+    color: var(--text-dim);
+}
+
+.portfolio-detail-block {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-soft);
+}
+
+.portfolio-detail-block h4 {
+    margin-bottom: 0.75rem;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+.portfolio-detail-block p {
+    color: var(--text-dim);
+}
+
+.portfolio-tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+}
+
+.portfolio-tech-list li {
+    border: 1px solid var(--border-medium);
+    border-radius: 4px;
+    padding: 0.5rem 0.7rem;
+    color: var(--primary);
+    font-family: monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+body.portfolio-modal-open {
+    overflow: hidden;
+}
+
+@media (max-width: 900px) {
+    .portfolio-modal-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-height: 88vh;
+    }
+
+    .portfolio-modal-details {
+        padding: 0 0.25rem 0.25rem;
+    }
+
+    .portfolio-modal[data-active-project="gaw-finance"] .portfolio-modal-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .portfolio-modal {
+        padding: 0.75rem;
+    }
+
+    .portfolio-modal-content {
+        padding: 0.85rem;
+    }
+
+    .portfolio-modal-close {
+        top: 0.65rem;
+        right: 0.65rem;
+        width: 38px;
+        height: 38px;
+    }
+
+    .portfolio-carousel {
+        aspect-ratio: 4/3;
+    }
+
+    .portfolio-modal[data-active-project="gaw-finance"] .portfolio-carousel {
+        aspect-ratio: 16 / 9;
+    }
+
+    .portfolio-carousel-control {
+        width: 38px;
+        height: 38px;
+    }
+
+    .portfolio-carousel-prev {
+        left: 0.6rem;
+    }
+
+    .portfolio-carousel-next {
+        right: 0.6rem;
+    }
+
+    .portfolio-modal-details h3 {
+        padding-right: 2.8rem;
+        font-size: 1.65rem;
+    }
 }
 
 /* Footer */
