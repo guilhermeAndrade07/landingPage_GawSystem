@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const root = document.documentElement;
+    const header = document.querySelector('header');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Intersection Observer for reveal animations
     const revealCallback = (entries, observer) => {
         entries.forEach(entry => {
@@ -12,9 +16,44 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0.1
     });
 
-    document.querySelectorAll('.reveal').forEach(el => {
+    document.querySelectorAll('.solution-card, .stat-item, .process-item').forEach((el, index) => {
+        el.classList.add('scroll-reveal');
+        el.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 90}ms`);
+    });
+
+    document.querySelectorAll('.reveal, .scroll-reveal').forEach(el => {
         revealObserver.observe(el);
     });
+
+    if (!prefersReducedMotion) {
+        let ticking = false;
+
+        const updateScrollEffects = () => {
+            const scrollTop = window.scrollY || window.pageYOffset;
+            const scrollable = Math.max(root.scrollHeight - window.innerHeight, 1);
+            const progress = Math.min(scrollTop / scrollable, 1);
+
+            root.style.setProperty('--scroll-progress', progress.toFixed(4));
+            root.style.setProperty('--hero-parallax', `${Math.max(scrollTop * -0.055, -64).toFixed(1)}px`);
+            root.style.setProperty('--workflow-parallax', `${Math.max((scrollTop - window.innerHeight) * -0.018, -42).toFixed(1)}px`);
+
+            header?.classList.toggle('is-scrolled', scrollTop > 16);
+            ticking = false;
+        };
+
+        const requestScrollEffects = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateScrollEffects);
+                ticking = true;
+            }
+        };
+
+        updateScrollEffects();
+        window.addEventListener('scroll', requestScrollEffects, { passive: true });
+        window.addEventListener('resize', requestScrollEffects);
+    } else {
+        root.style.setProperty('--scroll-progress', '0');
+    }
 
     // Mobile Menu Toggle (Optional enhancement)
     // Add logic here if a mobile menu button is added to the HTML
