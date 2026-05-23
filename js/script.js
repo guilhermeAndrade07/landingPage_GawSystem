@@ -82,6 +82,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    document.querySelectorAll('.plan-card').forEach((card) => {
+        const toggleButton = card.querySelector('.plan-toggle');
+        const toggleLabel = toggleButton?.querySelector('span');
+        const details = card.querySelector('.plan-details');
+
+        if (!toggleButton || !toggleLabel || !details) {
+            return;
+        }
+
+        toggleButton.addEventListener('click', () => {
+            const isExpanded = card.classList.toggle('is-expanded');
+
+            toggleButton.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            details.setAttribute('aria-hidden', isExpanded ? 'false' : 'true');
+            toggleLabel.textContent = isExpanded ? 'Ver menos' : 'Ver mais';
+        });
+    });
+
     const projects = [
         {
             id: 'landing-page-leonardo',

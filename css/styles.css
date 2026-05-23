@@ -591,7 +591,7 @@ nav {
 /* About Section with Background */
 .about-section {
     position: relative;
-    background: linear-gradient(rgba(6, 6, 6, 0.711), rgba(6, 6, 6, 0.629)), 
+    background: linear-gradient(rgba(6, 6, 6, 0.811), rgba(6, 6, 6, 0.729)),
                 url('../img/developer_bg.png?v=20260516');
     background-size: cover;
     background-position: center;
@@ -609,7 +609,7 @@ nav {
 
 @media (max-width: 768px) {
     .about-section {
-        background: linear-gradient(rgba(6, 6, 6, 0.86), rgba(6, 6, 6, 0.84)), 
+        background: linear-gradient(rgba(6, 6, 6, 0.96), rgba(6, 6, 6, 0.94)),
                     url('../img/developer_bg.png?v=20260516');
         background-size: auto 105%;
         background-position: center top;
@@ -734,14 +734,14 @@ nav {
 
 @media (min-width: 1024px) {
     .solutions-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 .solution-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-medium);
-    padding: 3rem 2.5rem;
+    padding: 3rem 2rem;
     border-radius: 8px;
     transition: var(--transition);
     display: flex;
@@ -798,6 +798,85 @@ nav {
     font-size: 0.95rem;
     margin-bottom: 2rem;
     flex-grow: 1;
+}
+
+.plan-card {
+    gap: 1.75rem;
+}
+
+.plan-card .solution-icon {
+    margin-bottom: 0.5rem;
+}
+
+.plan-card h3 {
+    margin-bottom: 0;
+}
+
+.plan-card .plan-description {
+    flex-grow: 0;
+    margin-bottom: 0.25rem;
+}
+
+.plan-section h4 {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.solution-features.plan-list {
+    border-top: 1px solid var(--border-soft);
+    margin-bottom: 0;
+    padding-top: 1rem;
+}
+
+.solution-features.plan-list li {
+    align-items: flex-start;
+    line-height: 1.45;
+    margin-bottom: 0.75rem;
+}
+
+.plan-toggle {
+    width: 100%;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.plan-toggle iconify-icon {
+    font-size: 1.1rem;
+    transition: transform 0.25s ease;
+}
+
+.plan-card.is-expanded .plan-toggle iconify-icon {
+    transform: rotate(180deg);
+}
+
+.plan-details {
+    display: grid;
+    gap: 1.75rem;
+    margin-top: -1.75rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+    transition: max-height 0.35s ease, opacity 0.25s ease, visibility 0s linear 0.35s;
+}
+
+.plan-card.is-expanded .plan-details {
+    margin-top: 0;
+    max-height: 1200px;
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+.plan-cta {
+    display: none;
+}
+
+.plan-card.is-expanded .plan-cta {
+    display: inline-flex;
 }
 
 .solution-features {
@@ -1458,6 +1537,79 @@ body.portfolio-modal-open {
         background-size: auto 70%;
         background-position: center top;
         background-repeat: no-repeat;
+    }
+}
+
+/* FAQ Section */
+.faq-section {
+    position: relative;
+}
+
+.faq-list {
+    display: grid;
+    gap: 1rem;
+    max-width: 860px;
+    margin: 3rem auto 0;
+}
+
+.faq-item {
+    background: rgba(10, 10, 10, 0.72);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.faq-item:hover,
+.faq-item[open] {
+    border-color: var(--border-strong);
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    min-height: 72px;
+    padding: 1.35rem 1.5rem;
+    color: var(--text-main);
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary iconify-icon {
+    flex: 0 0 auto;
+    color: var(--primary);
+    font-size: 1.25rem;
+    transition: transform 0.25s ease;
+}
+
+.faq-item[open] summary iconify-icon {
+    transform: rotate(180deg);
+}
+
+.faq-item p {
+    color: var(--text-dim);
+    margin: 0;
+    padding: 0 1.5rem 1.5rem;
+    max-width: 680px;
+}
+
+@media (max-width: 480px) {
+    .faq-item summary {
+        align-items: flex-start;
+        min-height: auto;
+        padding: 1.2rem;
+    }
+
+    .faq-item p {
+        padding: 0 1.2rem 1.2rem;
     }
 }
 
