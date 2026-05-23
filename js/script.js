@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
+            } else {
+                entry.target.classList.remove('active');
             }
         });
     };
@@ -19,6 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.solution-card, .stat-item, .process-item').forEach((el, index) => {
         el.classList.add('scroll-reveal');
         el.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 90}ms`);
+    });
+
+    document.querySelectorAll('.reveal:not(.hero-content):not(.portfolio-card)').forEach((el, index) => {
+        el.classList.add(index % 2 === 0 ? 'reveal-from-left' : 'reveal-from-right');
     });
 
     document.querySelectorAll('.reveal, .scroll-reveal').forEach(el => {
