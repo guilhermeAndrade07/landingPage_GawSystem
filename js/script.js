@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             objective: 'Criar uma presenca digital clara e persuasiva, destacando autoridade, diferenciais e chamada para contato em uma experiencia rapida e adaptada a todos os dispositivos.',
             images: [
                 'img/project-01.jpg',
-                'img/project-04.jpg'
+                'img/project-03.jpg'
             ]
         },
         {
