@@ -890,6 +890,59 @@ nav {
     margin-bottom: 1rem;
 }
 
+.plan-project-type {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.plan-project-type:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.plan-project-type h5 {
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+}
+
+.plan-project-type p {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.plan-protection-note {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 1rem;
+    background: rgba(0, 255, 38, 0.04);
+    border: 1px solid rgba(0, 255, 38, 0.18);
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+
+.plan-protection-note iconify-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.plan-protection-note p {
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    line-height: 1.55;
+    font-style: italic;
+    margin: 0;
+}
+
 .solution-features.plan-list {
     border-top: 1px solid var(--border-soft);
     margin-bottom: 0;
