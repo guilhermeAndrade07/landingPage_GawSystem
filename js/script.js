@@ -40,8 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const progress = Math.min(scrollTop / scrollable, 1);
 
             root.style.setProperty('--scroll-progress', progress.toFixed(4));
-            root.style.setProperty('--hero-parallax', `${Math.max(scrollTop * -0.055, -64).toFixed(1)}px`);
-            root.style.setProperty('--workflow-parallax', `${Math.max((scrollTop - window.innerHeight) * -0.018, -42).toFixed(1)}px`);
 
             header?.classList.toggle('is-scrolled', scrollTop > 16);
             ticking = false;
@@ -60,9 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         root.style.setProperty('--scroll-progress', '0');
     }
-
-    // Mobile Menu Toggle (Optional enhancement)
-    // Add logic here if a mobile menu button is added to the HTML
 
     // Smooth scroll for internal page links
     document.querySelectorAll('nav a[href^="#"], .footer-nav a[href^="#"], .hero-actions a[href^="#"], .logo[href^="#"]').forEach(anchor => {
@@ -327,20 +322,223 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Dynamic background effect (subtle parallax or particles could go here)
-    // For now, let's add a simple mouse move effect to the hero visual
-    const heroVisual = document.querySelector('.hero-visual');
-    if (heroVisual) {
-        heroVisual.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            const { innerWidth, innerHeight } = window;
-            const xPos = (clientX / innerWidth - 0.5) * 20;
-            const yPos = (clientY / innerHeight - 0.5) * 20;
-            
-            const content = heroVisual.querySelector('.hero-visual-content');
-            if (content) {
-                content.style.transform = `translate(${xPos}px, ${yPos}px)`;
-            }
+    const feedbacks = [
+        {
+            name: 'Ricardo Almeida',
+            role: 'Empresário',
+            projectType: 'Landing Page',
+            text: 'A GAW Systems entregou muito além do que eu esperava. O site ficou impecável, rápido e já comecei a receber contatos qualificados pela internet. O atendimento foi direto e sem burocracia.'
+        },
+        {
+            name: 'Camila Ferreira',
+            role: 'Personal Trainer',
+            projectType: 'Site Institucional',
+            text: 'Eu precisava de uma presença digital que passasse profissionalismo, e foi exatamente o que recebi. O site ficou moderno, funciona perfeitamente no celular e reflete a qualidade do meu trabalho.'
+        },
+        {
+            name: 'André Martins',
+            role: 'Gerente Financeiro',
+            projectType: 'Sistema Personalizado',
+            text: 'O sistema que a GAW desenvolveu para nós otimizou processos que antes eram feitos manualmente. A equipe entendeu nossa dor e entregou uma solução que realmente funciona no dia a dia.'
+        },
+        {
+            name: 'Patrícia Rocha',
+            role: 'Proprietária de Clínica',
+            projectType: 'Landing Page',
+            text: 'Desde o lançamento da landing page, o número de agendamentos online triplicou. Profissionalismo, prazo cumprido e um resultado que superou minhas expectativas. Recomendo de olhos fechados.'
+        }
+    ];
+
+    const feedbacksTrack = document.querySelector('[data-feedbacks-track]');
+    const feedbackIndicators = document.querySelector('[data-feedback-indicators]');
+    const feedbackPrev = document.querySelector('[data-feedback-prev]');
+    const feedbackNext = document.querySelector('[data-feedback-next]');
+
+    if (feedbacksTrack && feedbackIndicators) {
+        feedbacks.forEach((fb, i) => {
+            const slide = document.createElement('div');
+            slide.className = 'feedback-slide';
+            slide.setAttribute('aria-label', `Depoimento ${i + 1} de ${feedbacks.length}`);
+            slide.innerHTML = `
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">
+                            <iconify-icon icon="solar:user-circle-linear" style="font-size: 2.5rem; color: var(--primary);"></iconify-icon>
+                        </div>
+                        <div class="feedback-info">
+                            <span class="feedback-name">${fb.name}</span>
+                            <span class="feedback-meta">${fb.role} &middot; ${fb.projectType}</span>
+                        </div>
+                    </div>
+                    <p class="feedback-text">${fb.text}</p>
+                </div>
+            `;
+            feedbacksTrack.appendChild(slide);
         });
+
+        feedbacks.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'feedbacks-indicator' + (i === 0 ? ' is-active' : '');
+            dot.setAttribute('aria-label', `Ir para depoimento ${i + 1}`);
+            dot.dataset.feedbackIndex = i;
+            feedbackIndicators.appendChild(dot);
+        });
+
+        let currentFeedback = 0;
+        let feedbackTimer = null;
+        const totalFeedbacks = feedbacks.length;
+
+        const goToFeedback = (index) => {
+            currentFeedback = ((index % totalFeedbacks) + totalFeedbacks) % totalFeedbacks;
+            feedbacksTrack.style.transform = `translateX(-${currentFeedback * 100}%)`;
+            feedbackIndicators.querySelectorAll('.feedbacks-indicator').forEach((dot, i) => {
+                dot.classList.toggle('is-active', i === currentFeedback);
+            });
+        };
+
+        const startFeedbackTimer = () => {
+            stopFeedbackTimer();
+            feedbackTimer = window.setInterval(() => {
+                goToFeedback(currentFeedback + 1);
+            }, 6000);
+        };
+
+        const stopFeedbackTimer = () => {
+            if (feedbackTimer) {
+                window.clearInterval(feedbackTimer);
+                feedbackTimer = null;
+            }
+        };
+
+        feedbackPrev?.addEventListener('click', () => {
+            goToFeedback(currentFeedback - 1);
+            startFeedbackTimer();
+        });
+
+        feedbackNext?.addEventListener('click', () => {
+            goToFeedback(currentFeedback + 1);
+            startFeedbackTimer();
+        });
+
+        feedbackIndicators.addEventListener('click', (e) => {
+            const dot = e.target.closest('[data-feedback-index]');
+            if (!dot) return;
+            goToFeedback(Number(dot.dataset.feedbackIndex));
+            startFeedbackTimer();
+        });
+
+        startFeedbackTimer();
+    }
+
+    // Scroll-interactive ambient animation
+    const ambientCanvas = document.querySelector('[data-ambient-canvas]');
+    if (ambientCanvas) {
+        const ctx = ambientCanvas.getContext('2d');
+        const particles = [];
+        const particleCount = 120;
+
+        const resizeCanvas = () => {
+            ambientCanvas.width = window.innerWidth;
+            ambientCanvas.height = Math.max(document.body.scrollHeight, window.innerHeight);
+        };
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const totalHeight = () => Math.max(document.body.scrollHeight, window.innerHeight);
+
+        for (let i = 0; i < particleCount; i++) {
+            const baseY = Math.random() * totalHeight();
+            particles.push({
+                x: Math.random() * window.innerWidth,
+                y: baseY,
+                baseY: baseY,
+                radius: Math.random() * 2 + 0.8,
+                speed: Math.random() * 0.12 + 0.04,
+                drift: Math.random() * 0.4 - 0.2,
+                opacity: Math.random() * 0.35 + 0.1,
+                parallaxFactor: Math.random() * 0.06 + 0.01
+            });
+        }
+
+        let scrollY = 0;
+
+        const drawAmbient = () => {
+            ctx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
+
+            const h = totalHeight();
+
+            particles.forEach((p) => {
+                const rawY = p.baseY - (scrollY * p.parallaxFactor);
+                const loopH = h * 0.95;
+                const loopY = ((rawY % loopH) + loopH) % loopH;
+                const offsetX = Math.sin(Date.now() * p.speed * 0.001 + p.drift * 10) * 20;
+                const drawX = p.x + offsetX;
+                const drawY = loopY + Math.cos(Date.now() * p.speed * 0.0008 + p.drift * 5) * 8;
+
+                ctx.beginPath();
+                ctx.arc(drawX, drawY, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 255, 38, ${p.opacity})`;
+                ctx.fill();
+
+                if (p.radius > 1.4) {
+                    ctx.beginPath();
+                    ctx.arc(drawX, drawY, p.radius * 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 255, 38, ${p.opacity * 0.15})`;
+                    ctx.fill();
+                }
+            });
+
+            const maxDist = 170;
+
+            for (let i = 0; i < particles.length; i++) {
+                const pi = particles[i];
+                const rawYi = pi.baseY - (scrollY * pi.parallaxFactor);
+                const loopH = h * 0.95;
+                const liY = ((rawYi % loopH) + loopH) % loopH + Math.cos(Date.now() * pi.speed * 0.0008 + pi.drift * 5) * 8;
+                const liX = pi.x + Math.sin(Date.now() * pi.speed * 0.001 + pi.drift * 10) * 20;
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const pj = particles[j];
+                    const rawYj = pj.baseY - (scrollY * pj.parallaxFactor);
+                    const ljY = ((rawYj % loopH) + loopH) % loopH + Math.cos(Date.now() * pj.speed * 0.0008 + pj.drift * 5) * 8;
+                    const ljX = pj.x + Math.sin(Date.now() * pj.speed * 0.001 + pj.drift * 10) * 20;
+
+                    const dx = liX - ljX;
+                    const dy = liY - ljY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < maxDist) {
+                        const lineOpacity = 0.06 * (1 - dist / maxDist);
+                        ctx.beginPath();
+                        ctx.moveTo(liX, liY);
+                        ctx.lineTo(ljX, ljY);
+                        ctx.strokeStyle = `rgba(0, 255, 38, ${lineOpacity})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(drawAmbient);
+        };
+
+        const updateScrollForAmbient = () => {
+            scrollY = window.scrollY || window.pageYOffset;
+            if (ambientCanvas.height < document.body.scrollHeight) {
+                ambientCanvas.height = document.body.scrollHeight;
+            }
+        };
+
+        window.addEventListener('scroll', updateScrollForAmbient, { passive: true });
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            particles.forEach(p => {
+                p.x = Math.random() * window.innerWidth;
+            });
+        });
+        updateScrollForAmbient();
+        drawAmbient();
     }
 });

@@ -21,6 +21,7 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
 <body>
+    <canvas data-ambient-canvas></canvas>
 
     <header>
         <div class="container">
@@ -34,7 +35,9 @@
                     <a href="#sobre">Sobre</a>
                     <a href="#solucoes">Soluções</a>
                     <a href="#portfolio">Portfólio</a>
+                    <a href="#feedbacks">Feedbacks</a>
                     <a href="#processo">Processo</a>
+                    <a href="#faq">FAQ</a>
                 </nav>
 
                 <div class="header-actions">
@@ -46,14 +49,14 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="inicio" class="hero hero-background">
+        <section id="inicio" class="hero">
             <div class="hero-main">
                 <div class="hero-content reveal ">
                     <div class="hero-badge">
                         <div class="hero-badge-dot"></div>
                         <span class="font-mono text-dim">Transformação Digital</span>
                     </div>
-                    <h1 style="text-shadow: 0 1.5px 3px  white ;">Sites e sistemas <span class="text-accent">inteligentes</span> para o seu negócio</h1>
+                    <h1>Sites e sistemas <span class="text-accent">inteligentes</span> para o seu negócio</h1>
                     <p>Elevamos sua performance com interfaces persuasivas, arquitetura de alta performance e design focado em conversão.</p>
                     
                     <div class="hero-actions" style="display: flex; gap: 1rem; flex-wrap: wrap;">
@@ -99,15 +102,16 @@
                 <div class="about-content-wrapper">
                     <span class="font-mono text-accent">Nossa Essência</span>
                     <h2 class="about-title">Tecnologia criada para impulsionar negócios</h2>
-                    <p class="text-dim">A GAW Systems nasceu com o propósito de transformar conhecimento em soluções reais para empresas. 
-                        Desenvolvemos landing pages e sistemas modernos que ajudam negócios a organizar processos, fortalecer sua presença digital e gerar novas oportunidades. 
-                        <br> <br> Acreditamos que tecnologia não é um gasto, mas um investimento estratégico para empresas que desejam crescer, transmitir profissionalismo e evoluir no mercado digital.</p>
+                    <p class="text-dim">A GAW Systems foi fundada por Guilherme com um propósito claro: transformar conhecimento em soluções reais para empresas. 
+                        O que começou como a busca por aplicar na prática o que eu sabia de desenvolvimento, se tornou uma empresa dedicada a resolver problemas que negócios enfrentam todos os dias.
+                        <br> <br> Desenvolvemos landing pages, sites e sistemas modernos que ajudam empresas a organizar processos, fortalecer sua presença digital e gerar novas oportunidades. 
+                        Acreditamos que tecnologia não é um gasto, mas um investimento estratégico para empresas que desejam crescer, transmitir profissionalismo e evoluir no mercado digital.</p>
                 </div>
             </div>
         </section>
 
         <!-- Benefits Section -->
-        <section class="benefits-section section-padding container reveal" style="background: var(--bg-surface); border-radius: 4px; border: 1px solid var(--border-soft);">
+        <section class="benefits-section section-padding container reveal" style="background: linear-gradient(135deg, rgba(10, 10, 10, 1), rgba(0, 255, 38, 0.02)); border-radius: 4px; border: 1px solid var(--border-soft);">
             <div class="benefits-inner" style="display: flex; flex-direction: column; gap: 4rem; align-items: center;">
                 <div style="flex: 1;">
                     <span class="font-mono text-accent">Diferenciais</span>
@@ -316,9 +320,31 @@
                        </div>
                    </article>
                </div>
-           </section>
+</section>
 
-        <!-- Process Section -->
+            <!-- Feedbacks Section -->
+            <section id="feedbacks" class="section-padding container reveal">
+                <div class="section-header" style="text-align: center; margin-inline: auto;">
+                    <span class="font-mono text-accent">Feedbacks</span>
+                    <h2>O que nossos clientes dizem</h2>
+                    <p class="text-dim">Relatos reais de quem confiou na GAW Systems para transformar sua presença digital.</p>
+                </div>
+
+                <div class="feedbacks-carousel" aria-label="Depoimentos de clientes">
+                    <div class="feedbacks-track" data-feedbacks-track></div>
+                    <div class="feedbacks-controls">
+                        <button type="button" class="feedbacks-arrow feedbacks-prev" data-feedback-prev aria-label="Depoimento anterior">
+                            <iconify-icon icon="solar:alt-arrow-left-linear"></iconify-icon>
+                        </button>
+                        <div class="feedbacks-indicators" data-feedback-indicators></div>
+                        <button type="button" class="feedbacks-arrow feedbacks-next" data-feedback-next aria-label="Próximo depoimento">
+                            <iconify-icon icon="solar:alt-arrow-right-linear"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+         <!-- Process Section -->
         <section id="processo" class="section-padding container reveal">
             <div class="section-header" style="text-align: center; margin-inline: auto;">
                 <span class="font-mono text-accent">Workflow</span>
@@ -361,7 +387,7 @@
 
         <!-- Final CTA -->
         <section class="final-cta section-padding container reveal">
-            <div class="final-cta-card" style="background: linear-gradient(to right, #0a0a0a, #060606); border: 1px solid var(--primary); padding: 3rem; text-align: center; border-radius: 4px;">
+            <div class="final-cta-card" style="background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(0, 255, 38, 0.04)); border: 1px solid var(--primary); padding: 3rem; text-align: center; border-radius: 4px;">
                 <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Está pronto para começar a mudança no seu negócio?</h2>
                 <p class="text-dim" style="margin-bottom: 2.5rem; max-width: 600px; margin-inline: auto;">Envie uma mensagem para entendermos sua necessidade, mapearmos os objetivos do projeto e prepararmos um orçamento alinhado ao que o seu negócio busca.</p>
                 <a href="https://wa.me/5511967431111?text=Ol%C3%A1%21%20Vim%20pela%20landing%20page%20da%20Gaw%20Systems%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 1.2rem 2.5rem; font-size: 0.9rem;">
@@ -427,6 +453,7 @@
                 <a href="#sobre">Sobre</a>
                 <a href="#solucoes">Soluções</a>
                 <a href="#portfolio">Portfólio</a>
+                <a href="#feedbacks">Feedbacks</a>
                 <a href="#processo">Processo</a>
                 <a href="#faq">FAQ</a>
             </div>
