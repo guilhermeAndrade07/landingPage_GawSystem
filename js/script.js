@@ -200,14 +200,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const projects = [
         {
-            id: 'landing-page-leonardo',
-            title: 'Landing Page Leonardo',
-            description: 'Landing page responsiva criada para apresentar servicos profissionais com uma narrativa direta, visual premium e foco em conversao de visitantes em contatos qualificados.',
+            id: 'landing-page-guilherme',
+            title: 'Landing Page Guilherme',
+            description: 'Lading Page criada para servir de Curriculo para poder mostrar conhecimentos.',
             technologies: ['HTML', 'CSS', 'JavaScript', 'UI/UX', 'Responsividade'],
-            objective: 'Criar uma presenca digital clara e persuasiva, destacando autoridade, diferenciais e chamada para contato em uma experiencia rapida e adaptada a todos os dispositivos.',
+            objective: 'Criar um CV com base no conhecimento, destacando autoridade, diferenciais e chamada para contato em uma experiencia rapida e adaptada a todos os dispositivos.',
+            repo: null,
             images: [
-                'img/project-01.jpg',
-                'img/project-03.jpg'
+                'img/guilherme01.png',
+                'img/guilherme02.png',
+                'img/guilherme03.png'
             ]
         },
         {
@@ -216,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'Interface institucional para uma academia moderna, com destaque para posicionamento visual forte, apresentacao de estrutura e direcionamento rapido para captacao de alunos.',
             technologies: ['HTML', 'CSS', 'JavaScript', 'Landing Page', 'Performance'],
             objective: 'Valorizar a marca, comunicar beneficios de forma objetiva e conduzir o usuario para uma acao de contato ou matricula sem friccao.',
+            repo: null,
             images: [
                 'img/project-02.jpg'
             ]
@@ -226,11 +229,12 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'O Gaw Finance é um sistema de gestão financeira desenvolvido para ajudar usuários a organizarem receitas, despesas, assinaturas e investimentos de forma prática e intuitiva.',
             technologies: ["Python", "Django", "Django REST Framework", "PostgreSQL", "Docker", "Bootstrap", "Controle Financeiro"],
             objective: 'Facilitar o controle financeiro pessoal através de uma plataforma moderna, acessível e eficiente, auxiliando na tomada de decisões financeiras.',
+            repo: null,
             images: [
-                'img/gaw_finace01.png',
-                'img/gaw_finace02.png',
-                'img/gaw_finace03.png',
-                'img/gaw_finace04.png'
+                'img/gaw_finance01.png',
+                'img/gaw_finance02.png',
+                'img/gaw_finance03.png',
+                'img/gaw_finance04.png'
             ]
         }
     ];
@@ -240,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const portfolioDescription = document.querySelector('[data-project-description]');
     const portfolioObjective = document.querySelector('[data-project-objective]');
     const portfolioTechnologies = document.querySelector('[data-project-technologies]');
+    const portfolioRepoLink = document.querySelector('[data-project-repo]');
     const carouselTrack = document.querySelector('[data-project-carousel-track]');
     const carouselIndicators = document.querySelector('[data-project-indicators]');
     const prevButton = document.querySelector('[data-project-prev]');
@@ -251,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeSlide = 0;
     let lastFocusedElement = null;
     let closeTimer = null;
+    let savedBodyOverflow = null;
 
     const getFocusableElements = () => {
         if (!portfolioModal) {
@@ -285,6 +291,16 @@ document.addEventListener('DOMContentLoaded', () => {
         portfolioTechnologies.innerHTML = project.technologies
             .map((technology) => `<li>${technology}</li>`)
             .join('');
+
+        if (portfolioRepoLink) {
+            if (project.repo) {
+                portfolioRepoLink.href = project.repo;
+                portfolioRepoLink.hidden = false;
+            } else {
+                portfolioRepoLink.removeAttribute('href');
+                portfolioRepoLink.hidden = true;
+            }
+        }
 
         carouselTrack.innerHTML = project.images
             .map((image, index) => `
@@ -321,7 +337,11 @@ document.addEventListener('DOMContentLoaded', () => {
         portfolioModal.hidden = false;
         portfolioModal.dataset.activeProject = project.id;
         portfolioModal.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('portfolio-modal-open');
+
+        if (savedBodyOverflow === null) {
+            savedBodyOverflow = document.body.style.overflow || '';
+        }
+        document.body.style.overflow = 'hidden';
 
         window.requestAnimationFrame(() => {
             portfolioModal.classList.add('is-open');
@@ -336,7 +356,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         portfolioModal.classList.remove('is-open');
         portfolioModal.setAttribute('aria-hidden', 'true');
-        document.body.classList.remove('portfolio-modal-open');
+
+        if (savedBodyOverflow !== null) {
+            document.body.style.overflow = savedBodyOverflow;
+            savedBodyOverflow = null;
+        }
 
         closeTimer = window.setTimeout(() => {
             portfolioModal.hidden = true;

@@ -1404,18 +1404,22 @@ body.mobile-nav-open header {
     position: fixed;
     inset: 0;
     z-index: 1000;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 1.25rem;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
 }
 
 .portfolio-modal.is-open {
     opacity: 1;
-    pointer-events: none;
+    pointer-events: auto;
+}
+
+.portfolio-modal.is-open .portfolio-modal-backdrop {
+    pointer-events: auto;
 }
 
 .portfolio-modal[hidden] {
@@ -1437,8 +1441,11 @@ body.mobile-nav-open header {
     grid-template-columns: minmax(0, 1.08fr) minmax(260px, 0.72fr);
     gap: 1.35rem;
     width: min(920px, 100%);
-    margin: auto 0;
-    overflow: visible;
+    max-height: calc(100vh - 20px);
+    overflow-y: auto;
+    scroll-padding-top: 10px;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     background: linear-gradient(135deg, rgba(10, 10, 10, 0.94), rgba(6, 6, 6, 0.94));
     border: 1px solid var(--border-medium);
     border-radius: 4px;
@@ -1447,6 +1454,7 @@ body.mobile-nav-open header {
     transform: translateY(24px) scale(0.98);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: auto;
+    margin: 10px 0;
 }
 
 .portfolio-modal.is-open .portfolio-modal-content {
@@ -1648,8 +1656,40 @@ body.mobile-nav-open header {
     text-transform: uppercase;
 }
 
-body.portfolio-modal-open {
-    overflow: auto;
+.portfolio-modal-repo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    margin-top: 1.25rem;
+    padding: 0.7rem 1.1rem;
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--primary);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.portfolio-modal-repo iconify-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.portfolio-modal-repo:hover,
+.portfolio-modal-repo:focus-visible {
+    background: var(--primary);
+    color: var(--bg-main, #060606);
+    outline: none;
+}
+
+.portfolio-modal-repo[hidden] {
+    display: none;
 }
 
 @media (max-width: 900px) {
