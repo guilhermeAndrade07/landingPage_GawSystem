@@ -213,14 +213,17 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         },
         {
-            id: 'nexus-fitness-center',
-            title: 'Nexus Fitness Center',
-            description: 'Interface institucional para uma academia moderna, com destaque para posicionamento visual forte, apresentacao de estrutura e direcionamento rapido para captacao de alunos.',
-            technologies: ['HTML', 'CSS', 'JavaScript', 'Landing Page', 'Performance'],
-            objective: 'Valorizar a marca, comunicar beneficios de forma objetiva e conduzir o usuario para uma acao de contato ou matricula sem friccao.',
+            id: 'monarkia-3d',
+            title: 'Monarkia 3D',
+            description: 'Interface institucional para uma empresa de produtos feitos com impressora 3D, com destaque para posicionamento visual forte, apresentacao de estrutura e direcionamento rapido para captacao de clientes.',
+            technologies: ['HTML', 'CSS', 'JavaScript', 'Landing Page', 'UI/UX', 'Responsividade'],
+            objective: 'Valorizar a marca, comunicar usuários sobre o potencial da empresa e captar novos clientes.',
             repo: null,
             images: [
-                'img/project-02.jpg'
+                'img/monarkia01.png',
+                'img/monarkia03.png',
+                'img/monarkia02.png',
+                'img/monarkia04.png'
             ]
         },
         {
@@ -445,8 +448,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const feedbacks = [
         {
-            name: 'Ricardo Almeida',
-            role: 'Empresário',
+            name: 'Karen Monarkia',
+            role: 'Empresária',
             projectType: 'Landing Page',
             text: 'A GAW Systems entregou muito além do que eu esperava. O site ficou impecável, rápido e já comecei a receber contatos qualificados pela internet. O atendimento foi direto e sem burocracia.'
         },
@@ -458,16 +461,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             name: 'André Martins',
-            role: 'Gerente Financeiro',
+            role: 'Barbeiro',
             projectType: 'Sistema Personalizado',
             text: 'O sistema que a GAW desenvolveu para nós otimizou processos que antes eram feitos manualmente. A equipe entendeu nossa dor e entregou uma solução que realmente funciona no dia a dia.'
         },
-        {
-            name: 'Patrícia Rocha',
-            role: 'Proprietária de Clínica',
-            projectType: 'Landing Page',
-            text: 'Desde o lançamento da landing page, o número de agendamentos online triplicou. Profissionalismo, prazo cumprido e um resultado que superou minhas expectativas. Recomendo de olhos fechados.'
-        }
     ];
 
     const feedbacksTrack = document.querySelector('[data-feedbacks-track]');
