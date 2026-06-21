@@ -686,6 +686,51 @@ body.mobile-nav-open header {
     }
 }
 
+/* Hero Background */
+.hero-main {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.hero-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('../img/img_hero.png');
+    background-size: cover;
+    background-position: right calc(50% - var(--hero-progress, 0) * 40px);
+    background-repeat: no-repeat;
+    z-index: -2;
+    transform: scale(calc(1.04 + var(--hero-progress, 0) * 0.06));
+    transition: transform 0.4s ease-out;
+    will-change: transform, background-position;
+}
+
+@media (min-width: 1024px) {
+    .hero-main::before {
+        background-position: center calc(50% - var(--hero-progress, 0) * 40px);
+    }
+}
+
+.hero-main::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(6, 6, 6, 0.55) 0%, rgba(6, 6, 6, 0.35) 100%),
+        linear-gradient(90deg, rgba(6, 6, 6, 0.88) 0%, rgba(6, 6, 6, 0.45) 55%, rgba(6, 6, 6, 0.25) 100%);
+    z-index: -1;
+    pointer-events: none;
+    opacity: calc(1 - var(--hero-progress, 0) * 0.4);
+    transition: opacity 0.4s ease-out;
+}
+
+.hero-main > .hero-content {
+    position: relative;
+    z-index: 1;
+}
+
 .hero-badge {
     display: inline-flex;
     align-items: center;
@@ -896,7 +941,7 @@ body.mobile-nav-open header {
 .about-content-wrapper {
     position: relative;
     z-index: 1;
-    max-width: 800px;
+    max-width: 820px;
     margin: 0 auto;
     text-align: center;
 }
@@ -1761,7 +1806,7 @@ body.mobile-nav-open header {
     display: grid;
     grid-template-columns: 1fr;
     gap: 3.5rem;
-    margin-top: 4rem;
+    margin-top: 3rem;
     position: relative;
 }
 
@@ -2327,5 +2372,122 @@ main, footer {
     .feedbacks-arrow {
         width: 38px;
         height: 38px;
+    }
+}
+
+/* ============================================
+   Scroll-driven interactions
+   ============================================ */
+
+/* Stats: contadores animados */
+.stat-value {
+    font-variant-numeric: tabular-nums;
+    min-height: 1.2em;
+    display: inline-block;
+}
+
+.stat-value.is-counting {
+    opacity: 0.85;
+}
+
+/* Processo: linha conectora animada */
+.process-item:not(:last-child)::after {
+    transform: translateX(-50%) scaleY(0);
+    transform-origin: top center;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.process-item.scroll-reveal.active:not(:last-child)::after {
+    transform: translateX(-50%) scaleY(1);
+}
+
+@media (min-width: 1200px) {
+    .process-item:not(:last-child)::after {
+        transform: scaleX(0);
+        transform-origin: left center;
+    }
+
+    .process-item.scroll-reveal.active:not(:last-child)::after {
+        transform: scaleX(1);
+    }
+}
+
+.process-item:not(:last-child)::before {
+    opacity: 0;
+    transition: opacity 0.4s ease 0.9s;
+}
+
+.process-item.scroll-reveal.active:not(:last-child)::before {
+    opacity: 1;
+}
+
+/* Solution cards: tilt 3D + spotlight que segue o mouse */
+.solution-card {
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    --mx: 50%;
+    --my: 50%;
+    transform: perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.solution-card > * {
+    transform: translateZ(0);
+}
+
+.solution-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle 240px at var(--mx) var(--my), rgba(0, 255, 38, 0.14), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 0;
+}
+
+.solution-card:hover {
+    transform: perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-10px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.solution-card:hover::after {
+    opacity: 1;
+}
+
+.solution-card:hover::before {
+    transform: scaleX(1);
+}
+
+.solution-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-main::before,
+    .hero-main::after {
+        transition: none;
+    }
+
+    .process-item:not(:last-child)::after,
+    .process-item:not(:last-child)::before {
+        transition: none;
+    }
+
+    .solution-card {
+        transform: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .solution-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .solution-card::after {
+        display: none;
     }
 }

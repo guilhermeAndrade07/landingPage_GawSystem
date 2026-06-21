@@ -659,4 +659,130 @@ document.addEventListener('DOMContentLoaded', () => {
         updateScrollForAmbient();
         drawAmbient();
     }
+
+    // ============================================
+    // Scroll-driven interactions
+    // ============================================
+
+    const heroMain = document.querySelector('.hero-main');
+    if (heroMain && !prefersReducedMotion) {
+        let heroTicking = false;
+        const updateHeroParallax = () => {
+            const rect = heroMain.getBoundingClientRect();
+            const windowH = window.innerHeight;
+            const total = rect.height + windowH * 0.6;
+            const scrolled = windowH - rect.top;
+            const progress = Math.max(0, Math.min(1, scrolled / total));
+            heroMain.style.setProperty('--hero-progress', progress.toFixed(4));
+            heroTicking = false;
+        };
+        const requestHeroParallax = () => {
+            if (!heroTicking) {
+                window.requestAnimationFrame(updateHeroParallax);
+                heroTicking = true;
+            }
+        };
+        window.addEventListener('scroll', requestHeroParallax, { passive: true });
+        window.addEventListener('resize', requestHeroParallax);
+        updateHeroParallax();
+    }
+
+    const statValues = document.querySelectorAll('.stat-value');
+    if (statValues.length) {
+        const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+        const animateNumber = (el, from, to, duration, format) => {
+            const start = performance.now();
+            const step = (now) => {
+                const t = Math.min((now - start) / duration, 1);
+                const value = from + (to - from) * easeOutCubic(t);
+                el.textContent = format(value);
+                if (t < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    el.classList.remove('is-counting');
+                }
+            };
+            el.classList.add('is-counting');
+            requestAnimationFrame(step);
+        };
+
+        const animateTypewriter = (el, text, perChar) => {
+            el.textContent = '';
+            let i = 0;
+            const tick = () => {
+                i += 1;
+                el.textContent = text.slice(0, i);
+                if (i < text.length) {
+                    window.setTimeout(tick, perChar);
+                } else {
+                    el.classList.remove('is-counting');
+                }
+            };
+            el.classList.add('is-counting');
+            tick();
+        };
+
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+                const el = entry.target;
+                if (!el.dataset.statValue) {
+                    el.dataset.statValue = el.textContent.trim();
+                }
+                const original = el.dataset.statValue;
+
+                if (prefersReducedMotion) {
+                    el.textContent = original;
+                } else if (/^\d+%$/.test(original)) {
+                    animateNumber(el, 0, parseInt(original, 10), 1400, (v) => `${Math.round(v)}%`);
+                } else if (/^<\s*1s$/.test(original)) {
+                    animateNumber(el, 0, 0.9, 1400, (v) => `< ${v.toFixed(1)}s`);
+                } else {
+                    animateTypewriter(el, original, 90);
+                }
+                statObserver.unobserve(el);
+            });
+        }, { threshold: 0.55 });
+
+        statValues.forEach((el) => statObserver.observe(el));
+    }
+
+    if (!prefersReducedMotion) {
+        const tiltCards = document.querySelectorAll('.solution-card');
+        tiltCards.forEach((card) => {
+            let rafId = null;
+            const onMove = (event) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((event.clientX - rect.left) / rect.width) * 100;
+                const y = ((event.clientY - rect.top) / rect.height) * 100;
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                }
+                rafId = requestAnimationFrame(() => {
+                    card.style.setProperty('--mx', `${x}%`);
+                    card.style.setProperty('--my', `${y}%`);
+                    const tiltX = ((y - 50) / 50) * -4;
+                    const tiltY = ((x - 50) / 50) * 4;
+                    card.style.setProperty('--tilt-x', `${tiltX}deg`);
+                    card.style.setProperty('--tilt-y', `${tiltY}deg`);
+                    rafId = null;
+                });
+            };
+            const onLeave = () => {
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+                card.style.setProperty('--tilt-x', '0deg');
+                card.style.setProperty('--tilt-y', '0deg');
+                card.style.setProperty('--mx', '50%');
+                card.style.setProperty('--my', '50%');
+            };
+            card.addEventListener('mousemove', onMove);
+            card.addEventListener('mouseleave', onLeave);
+        });
+    }
 });
