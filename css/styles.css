@@ -275,7 +275,7 @@ h1, h2, h3, h4 {
 }
 
 .process-item.scroll-reveal.active .process-number {
-    color: rgba(0, 255, 38, 0.38);
+    color: rgba(206, 206, 206, 0.881);
     text-shadow: 0 0 18px rgba(0, 255, 38, 0.18);
 }
 
@@ -748,6 +748,12 @@ body.mobile-nav-open header {
     background-color: var(--primary);
     border-radius: 50%;
     box-shadow: 0 0 8px var(--primary);
+    animation: dotBlink 1.4s ease-in-out infinite;
+}
+
+@keyframes dotBlink {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--primary); }
+    50% { opacity: 0.3; box-shadow: 0 0 2px var(--primary); }
 }
 
 .hero h1 {
@@ -942,6 +948,8 @@ body.mobile-nav-open header {
     position: relative;
     z-index: 1;
     text-align: left;
+    align-self: center;
+    margin-top: -2.5rem;
 }
 
 .about-grid {
@@ -956,11 +964,33 @@ body.mobile-nav-open header {
 .about-logo-frame {
     position: relative;
     width: 280px;
-    height: 280px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 1.25rem;
     flex-shrink: 0;
+}
+
+.about-badges {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1;
+}
+
+.about-badges .hero-badge {
+    animation: badgeFloat 4s ease-in-out infinite;
+}
+
+.about-badges .hero-badge:nth-child(1) { animation-delay: 0s; }
+.about-badges .hero-badge:nth-child(2) { animation-delay: 0.4s; }
+.about-badges .hero-badge:nth-child(3) { animation-delay: 0.8s; }
+
+@keyframes badgeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
 }
 
 .about-logo-frame::before {
@@ -1005,11 +1035,11 @@ body.mobile-nav-open header {
 
     .about-logo-frame {
         width: 200px;
-        height: 200px;
     }
 
     .about-logo-frame .logo-floating {
         width: 150px;
+        height: 150px;
     }
 }
 
@@ -1433,12 +1463,13 @@ body.mobile-nav-open header {
     position: relative;
     display: flex;
     align-items: flex-start;
+    flex-direction: column;
     gap: 1.25rem;
     min-width: 0;
-    padding: 2.5rem;
+    padding: 2rem;
     background: var(--bg-surface);
     border: 1px solid var(--border-soft);
-    border-radius: 8px;
+    border-radius:20px;
     transition: var(--transition);
 }
 
@@ -1458,7 +1489,7 @@ body.mobile-nav-open header {
     background: linear-gradient(180deg, rgba(0, 255, 38, 0.15), rgba(0, 255, 38, 0.85));
     transform: translateX(-50%);
 }
-
+ 
 .process-item:not(:last-child)::before {
     left: 50%;
     bottom: -2.55rem;
@@ -1502,7 +1533,7 @@ body.mobile-nav-open header {
 .process-number {
     font-family: var(--font-heading);
     font-size: 2rem;
-    color: rgba(255, 255, 255, 0.26);
+
     position: static;
     order: 1;
     flex: 0 0 auto;
