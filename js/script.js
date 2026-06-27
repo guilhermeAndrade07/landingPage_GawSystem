@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Intersection Observer for reveal animations
     const revealCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -23,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 180}ms`);
     });
 
-    document.querySelectorAll('.reveal:not(.hero-content):not(.portfolio-card)').forEach((el, index) => {
+    document.querySelectorAll('.reveal:not(.hero-content)').forEach((el, index) => {
         el.classList.add(index % 2 === 0 ? 'reveal-from-left' : 'reveal-from-right');
         el.style.setProperty('--reveal-delay', `${(index % 4) * 120}ms`);
     });
@@ -60,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         root.style.setProperty('--scroll-progress', '0');
     }
 
-    // Mobile Nav (hamburger) logic
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const mobileNav = document.getElementById('mobile-nav');
     const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
@@ -156,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Smooth scroll for internal page links
     document.querySelectorAll('nav a[href^="#"], .footer-nav a[href^="#"], .hero-actions a[href^="#"], .logo[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
@@ -196,254 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
             details.setAttribute('aria-hidden', isExpanded ? 'false' : 'true');
             toggleLabel.textContent = isExpanded ? 'Ver menos' : 'Ver mais';
         });
-    });
-
-    const projects = [
-        {
-            id: 'landing-page-guilherme',
-            title: 'Landing Page Guilherme',
-            description: 'Lading Page criada para servir de Curriculo para poder mostrar conhecimentos.',
-            technologies: ['HTML', 'CSS', 'JavaScript', 'UI/UX', 'Responsividade'],
-            objective: 'Criar um CV com base no conhecimento, destacando autoridade, diferenciais e chamada para contato em uma experiencia rapida e adaptada a todos os dispositivos.',
-            repo: null,
-            images: [
-                'img/guilherme01.png',
-                'img/guilherme02.png',
-                'img/guilherme03.png'
-            ]
-        },
-        {
-            id: 'monarkia-3d',
-            title: 'Monarkia 3D',
-            description: 'Interface institucional para uma empresa de produtos feitos com impressora 3D, com destaque para posicionamento visual forte, apresentacao de estrutura e direcionamento rapido para captacao de clientes.',
-            technologies: ['HTML', 'CSS', 'JavaScript', 'Landing Page', 'UI/UX', 'Responsividade'],
-            objective: 'Valorizar a marca, comunicar usuários sobre o potencial da empresa e captar novos clientes.',
-            repo: null,
-            images: [
-                'img/monarkia01.png',
-                'img/monarkia03.png',
-                'img/monarkia02.png',
-                'img/monarkia04.png'
-            ]
-        },
-        {
-            id: 'gaw-finance',
-            title: 'Gaw Finance',
-            description: 'O Gaw Finance é um sistema de gestão financeira desenvolvido para ajudar usuários a organizarem receitas, despesas, assinaturas e investimentos de forma prática e intuitiva.',
-            technologies: ["Python", "Django", "Django REST Framework", "PostgreSQL", "Docker", "Bootstrap", "Controle Financeiro"],
-            objective: 'Facilitar o controle financeiro pessoal através de uma plataforma moderna, acessível e eficiente, auxiliando na tomada de decisões financeiras.',
-            repo: null,
-            images: [
-                'img/gaw_finance01.png',
-                'img/gaw_finance02.png',
-                'img/gaw_finance03.png',
-                'img/gaw_finance04.png'
-            ]
-        }
-    ];
-
-    const portfolioModal = document.getElementById('portfolio-modal');
-    const portfolioTitle = document.getElementById('portfolio-modal-title');
-    const portfolioDescription = document.querySelector('[data-project-description]');
-    const portfolioObjective = document.querySelector('[data-project-objective]');
-    const portfolioTechnologies = document.querySelector('[data-project-technologies]');
-    const portfolioRepoLink = document.querySelector('[data-project-repo]');
-    const carouselTrack = document.querySelector('[data-project-carousel-track]');
-    const carouselIndicators = document.querySelector('[data-project-indicators]');
-    const prevButton = document.querySelector('[data-project-prev]');
-    const nextButton = document.querySelector('[data-project-next]');
-    const closeButtons = document.querySelectorAll('[data-project-close]');
-    const portfolioCards = document.querySelectorAll('.portfolio-card[data-project-id]');
-
-    let activeProject = null;
-    let activeSlide = 0;
-    let lastFocusedElement = null;
-    let closeTimer = null;
-    let savedBodyOverflow = null;
-
-    const getFocusableElements = () => {
-        if (!portfolioModal) {
-            return [];
-        }
-
-        return Array.from(portfolioModal.querySelectorAll('button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'));
-    };
-
-    const updateCarousel = () => {
-        if (!activeProject || !carouselTrack || !carouselIndicators) {
-            return;
-        }
-
-        carouselTrack.style.transform = `translateX(-${activeSlide * 100}%)`;
-
-        carouselIndicators.querySelectorAll('.portfolio-carousel-indicator').forEach((indicator, index) => {
-            const isActive = index === activeSlide;
-            indicator.classList.toggle('is-active', isActive);
-            indicator.setAttribute('aria-current', isActive ? 'true' : 'false');
-        });
-    };
-
-    const renderProjectDetails = (project) => {
-        activeProject = project;
-        activeSlide = 0;
-
-        portfolioTitle.textContent = project.title;
-        portfolioDescription.textContent = project.description;
-        portfolioObjective.textContent = project.objective;
-
-        portfolioTechnologies.innerHTML = project.technologies
-            .map((technology) => `<li>${technology}</li>`)
-            .join('');
-
-        if (portfolioRepoLink) {
-            if (project.repo) {
-                portfolioRepoLink.href = project.repo;
-                portfolioRepoLink.hidden = false;
-            } else {
-                portfolioRepoLink.removeAttribute('href');
-                portfolioRepoLink.hidden = true;
-            }
-        }
-
-        carouselTrack.innerHTML = project.images
-            .map((image, index) => `
-                <figure class="portfolio-carousel-slide">
-                    <img src="${image}" alt="${project.title} - imagem ${index + 1}">
-                </figure>
-            `)
-            .join('');
-
-        carouselIndicators.innerHTML = project.images
-            .map((_, index) => `
-                <button type="button" class="portfolio-carousel-indicator" data-slide-index="${index}" aria-label="Ir para imagem ${index + 1}"></button>
-            `)
-            .join('');
-
-        const hasMultipleImages = project.images.length > 1;
-        prevButton.disabled = !hasMultipleImages;
-        nextButton.disabled = !hasMultipleImages;
-
-        updateCarousel();
-    };
-
-    const openProjectDetails = (projectId) => {
-        const project = projects.find((item) => item.id === projectId);
-
-        if (!project || !portfolioModal) {
-            return;
-        }
-
-        window.clearTimeout(closeTimer);
-        lastFocusedElement = document.activeElement;
-
-        renderProjectDetails(project);
-        portfolioModal.hidden = false;
-        portfolioModal.dataset.activeProject = project.id;
-        portfolioModal.setAttribute('aria-hidden', 'false');
-
-        if (savedBodyOverflow === null) {
-            savedBodyOverflow = document.body.style.overflow || '';
-        }
-        document.body.style.overflow = 'hidden';
-
-        window.requestAnimationFrame(() => {
-            portfolioModal.classList.add('is-open');
-            portfolioModal.querySelector('.portfolio-modal-close')?.focus();
-        });
-    };
-
-    const closeProjectDetails = () => {
-        if (!portfolioModal || portfolioModal.hidden) {
-            return;
-        }
-
-        portfolioModal.classList.remove('is-open');
-        portfolioModal.setAttribute('aria-hidden', 'true');
-
-        if (savedBodyOverflow !== null) {
-            document.body.style.overflow = savedBodyOverflow;
-            savedBodyOverflow = null;
-        }
-
-        closeTimer = window.setTimeout(() => {
-            portfolioModal.hidden = true;
-            delete portfolioModal.dataset.activeProject;
-            activeProject = null;
-            lastFocusedElement?.focus();
-        }, 250);
-    };
-
-    const showNextSlide = () => {
-        if (!activeProject || activeProject.images.length <= 1) {
-            return;
-        }
-
-        activeSlide = (activeSlide + 1) % activeProject.images.length;
-        updateCarousel();
-    };
-
-    const showPreviousSlide = () => {
-        if (!activeProject || activeProject.images.length <= 1) {
-            return;
-        }
-
-        activeSlide = (activeSlide - 1 + activeProject.images.length) % activeProject.images.length;
-        updateCarousel();
-    };
-
-    portfolioCards.forEach((card) => {
-        card.addEventListener('click', () => {
-            openProjectDetails(card.dataset.projectId);
-        });
-    });
-
-    closeButtons.forEach((button) => {
-        button.addEventListener('click', closeProjectDetails);
-    });
-
-    prevButton?.addEventListener('click', showPreviousSlide);
-    nextButton?.addEventListener('click', showNextSlide);
-
-    carouselIndicators?.addEventListener('click', (event) => {
-        const indicator = event.target.closest('[data-slide-index]');
-
-        if (!indicator) {
-            return;
-        }
-
-        activeSlide = Number(indicator.dataset.slideIndex);
-        updateCarousel();
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (!portfolioModal || portfolioModal.hidden) {
-            return;
-        }
-
-        if (event.key === 'Escape') {
-            closeProjectDetails();
-            return;
-        }
-
-        if (event.key !== 'Tab') {
-            return;
-        }
-
-        const focusableElements = getFocusableElements();
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
-
-        if (!firstElement || !lastElement) {
-            return;
-        }
-
-        if (event.shiftKey && document.activeElement === firstElement) {
-            event.preventDefault();
-            lastElement.focus();
-        } else if (!event.shiftKey && document.activeElement === lastElement) {
-            event.preventDefault();
-            firstElement.focus();
-        }
     });
 
     const feedbacks = [
@@ -549,7 +298,6 @@ document.addEventListener('DOMContentLoaded', () => {
         startFeedbackTimer();
     }
 
-    // Scroll-interactive ambient animation
     const ambientCanvas = document.querySelector('[data-ambient-canvas]');
     if (ambientCanvas) {
         const ctx = ambientCanvas.getContext('2d');
