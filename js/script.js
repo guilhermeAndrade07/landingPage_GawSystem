@@ -197,8 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const feedbacks = [
         {
-            name: 'Karen Monarkia',
-            role: 'Empresária',
+            name: 'Caio Empresário',
+            role: 'Empresário',
             projectType: 'Landing Page',
             text: 'A GAW Systems entregou muito além do que eu esperava. O site ficou impecável, rápido e já comecei a receber contatos qualificados pela internet. O atendimento foi direto e sem burocracia.'
         },
