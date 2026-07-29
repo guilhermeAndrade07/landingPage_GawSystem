@@ -533,4 +533,52 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('mouseleave', onLeave);
         });
     }
+
+    // ============================================
+    // WhatsApp Floating Button Tooltip
+    // ============================================
+
+    const whatsappFab = document.querySelector('.whatsapp-fab');
+    const whatsappTooltip = document.getElementById('whatsapp-tooltip');
+
+    if (whatsappFab && whatsappTooltip) {
+        const TOOLTIP_DELAY = 5000;
+        let tooltipTimer = null;
+
+        const hideTooltip = () => {
+            if (!whatsappFab.matches(':hover')) {
+                whatsappTooltip.classList.remove('visible');
+            }
+        };
+
+        const showTooltip = () => {
+            whatsappTooltip.classList.add('visible');
+        };
+
+        const startTooltipTimer = () => {
+            clearTimeout(tooltipTimer);
+            tooltipTimer = setTimeout(hideTooltip, TOOLTIP_DELAY);
+        };
+
+        showTooltip();
+        startTooltipTimer();
+
+        whatsappFab.addEventListener('mouseenter', () => {
+            clearTimeout(tooltipTimer);
+            showTooltip();
+        });
+
+        whatsappFab.addEventListener('mouseleave', () => {
+            startTooltipTimer();
+        });
+
+        whatsappFab.addEventListener('focus', () => {
+            clearTimeout(tooltipTimer);
+            showTooltip();
+        });
+
+        whatsappFab.addEventListener('blur', () => {
+            startTooltipTimer();
+        });
+    }
 });

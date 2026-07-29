@@ -1069,7 +1069,7 @@ body.mobile-nav-open header {
     .about-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
-        justify-items: start;
+        justify-items: center;
     }
 
     .about-logo-frame {
@@ -2174,5 +2174,163 @@ main, footer {
 
     .solution-card::after {
         display: none;
+    }
+
+    .whatsapp-fab {
+        animation: none !important;
+    }
+
+    .whatsapp-fab-tooltip {
+        transition: none !important;
+    }
+}
+
+/* ============================================
+   WhatsApp Floating Button
+   ============================================ */
+
+.whatsapp-fab {
+    --fab-whatsapp: #25D363;
+    --fab-whatsapp-dark: #1da851;
+    --fab-size: 60px;
+
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: var(--fab-size);
+    height: var(--fab-size);
+    border-radius: 50%;
+    background: var(--fab-whatsapp);
+    background: linear-gradient(135deg, var(--fab-whatsapp) 0%, var(--fab-whatsapp-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 4px 16px rgba(37, 211, 99, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 99990;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    animation: whatsapp-fab-pulse 2.5s ease-in-out infinite;
+}
+
+.whatsapp-fab:hover {
+    transform: scale(1.1);
+    box-shadow:
+        0 6px 24px rgba(37, 211, 99, 0.55),
+        0 3px 12px rgba(0, 0, 0, 0.4);
+    animation-play-state: paused;
+}
+
+.whatsapp-fab:active {
+    transform: scale(1.05);
+}
+
+.whatsapp-fab-icon {
+    font-size: 26px;
+    color: #ffffff;
+    pointer-events: none;
+}
+
+/* Tooltip / Balão de mensagem */
+.whatsapp-fab-tooltip {
+    position: absolute;
+    right: calc(var(--fab-size) + 18px);
+    top: 50%;
+    transform: translateY(-50%) translateX(8px);
+    background: #ffffff;
+    color: #0a0a0a;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    padding: 10px 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+    z-index: 1;
+}
+
+.whatsapp-fab-tooltip::before {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-radius: 2px;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.whatsapp-fab-tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+.whatsapp-fab:hover .whatsapp-fab-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* Esconde botão quando o menu mobile estiver aberto */
+body.mobile-nav-open .whatsapp-fab {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.6);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+/* Animação de pulse */
+@keyframes whatsapp-fab-pulse {
+    0%, 100% {
+        box-shadow:
+            0 4px 16px rgba(37, 211, 99, 0.4),
+            0 0 0 0 rgba(37, 211, 99, 0.3),
+            0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow:
+            0 4px 16px rgba(37, 211, 99, 0.4),
+            0 0 0 14px rgba(37, 211, 99, 0),
+            0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* ---- Responsividade ---- */
+@media (max-width: 768px) {
+    .whatsapp-fab {
+        --fab-size: 54px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .whatsapp-fab-icon {
+        font-size: 24px;
+    }
+
+    .whatsapp-fab-tooltip {
+        font-size: 0.8125rem;
+        padding: 9px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .whatsapp-fab {
+        --fab-size: 50px;
+        bottom: 16px;
+        right: 16px;
+    }
+
+    .whatsapp-fab-icon {
+        font-size: 22px;
     }
 }
